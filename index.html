@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111318">
+<title>Kaelz FX — Learning Journal</title>
+<style>
+:root{--bg:#0c0d10;--panel:#15171d;--panel2:#1d2028;--line:#2a2e38;--text:#f3f4f6;--muted:#9da3b0;--accent:#d8dde7;--good:#b8e3c5;--warn:#f2d6a2}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{max-width:920px;margin:auto;padding:18px 14px 42px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px}.brand{font-size:12px;letter-spacing:2px;color:var(--muted);font-weight:700}.tag{border:1px solid var(--line);border-radius:99px;padding:5px 10px;color:var(--muted);font-size:12px}
+h1{font-size:clamp(27px,6vw,42px);line-height:1.08;margin:8px 0 10px;letter-spacing:-1px}h2{font-size:18px;margin:0 0 12px}p{margin:0 0 12px}.muted{color:var(--muted)}.hero{padding:22px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(145deg,#1b1e25,#111318);margin-bottom:14px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}.stat{background:#101116;border:1px solid var(--line);border-radius:13px;padding:12px}.stat b{font-size:22px;display:block}.stat span{font-size:12px;color:var(--muted)}
+.progress{height:7px;background:#30333c;border-radius:9px;overflow:hidden;margin-top:14px}.bar{height:100%;width:0;background:#e2e5ec;transition:width .2s}
+.grid{display:grid;grid-template-columns:1fr;gap:14px}.card{border:1px solid var(--line);border-radius:17px;background:var(--panel);padding:17px;margin-bottom:14px}
+label{display:block;font-size:13px;color:#c7cbd4;margin:12px 0 6px}input,select,textarea{width:100%;background:#0e1015;color:var(--text);border:1px solid #343945;border-radius:10px;padding:11px 12px;font:inherit;outline:none}textarea{min-height:86px;resize:vertical}input:focus,select:focus,textarea:focus{border-color:#9ca3af}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.buttons{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}button{border:1px solid #414652;background:#e4e7ee;color:#111318;font-weight:700;border-radius:10px;padding:10px 13px;font:inherit;cursor:pointer}button.secondary{background:#20232b;color:var(--text)}button.danger{background:#2a1a1c;color:#ffd7d7;border-color:#543236}
+.lesson-list{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}.lesson{padding:10px 4px;text-align:center;border:1px solid var(--line);border-radius:10px;background:#101116;color:var(--text);font-size:12px;cursor:pointer}.lesson.active{border-color:#e0e3eb;background:#30343e}.lesson.done{border-color:#4c755b;color:var(--good)}.lesson small{display:block;color:var(--muted)}
+.notice{font-size:12px;color:var(--muted);margin-top:12px}.status{font-size:13px;color:var(--good);min-height:20px;margin-top:8px}.footer{text-align:center;color:var(--muted);font-size:12px;padding:16px 0}
+@media(min-width:740px){.grid{grid-template-columns:1fr 1fr}.lesson-list{grid-template-columns:repeat(6,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><div class="brand">KAELZ FX <span style="color:#f3f4f6">/ JOURNAL</span></div><div class="tag">DEMO LEARNING ONLY</div></div>
+  <section class="hero">
+    <p class="brand">30-DAY LEARNING TRACKER</p>
+    <h1>Belajar terarah.<br>Catat seperlunya.</h1>
+    <p class="muted">Jurnal forex sederhana untuk mencatat materi, latihan, dan evaluasi. Gunakan akun demo—jangan jadikan forex sebagai sumber uang jajan yang pasti.</p>
+    <div class="stats">
+      <div class="stat"><b id="doneCount">0/30</b><span>Materi selesai</span></div>
+      <div class="stat"><b id="streakCount">0</b><span>Catatan tersimpan</span></div>
+      <div class="stat"><b id="percentCount">0%</b><span>Progres</span></div>
+    </div>
+    <div class="progress"><div class="bar" id="progressBar"></div></div>
+  </section>
+  <section class="card">
+    <h2>Pilih materi</h2>
+    <p class="muted">Pilih hari untuk membuka atau memperbarui catatan.</p>
+    <div class="lesson-list" id="lessonList"></div>
+  </section>
+  <div class="grid">
+    <section class="card">
+      <h2 id="lessonHeading">Day 1 — Dasar Forex</h2>
+      <p class="muted" id="lessonDesc">Kenali konsep dasar sebelum berlatih.</p>
+      <label for="date">Tanggal belajar</label><input id="date" type="date">
+      <label for="topic">Materi yang dipelajari</label><textarea id="topic" placeholder="Contoh: pasangan mata uang, pip, spread..."></textarea>
+      <label for="practice">Latihan / jawaban saya</label><textarea id="practice" placeholder="Tulis latihan atau jawaban singkat."></textarea>
+      <label for="lessonLearned">Apa yang saya pahami?</label><textarea id="lessonLearned" placeholder="Tulis 1–3 hal penting."></textarea>
+      <label for="difficulty">Bagian yang masih membingungkan</label><textarea id="difficulty" placeholder="Tulis yang belum dipahami agar bisa dibahas lagi."></textarea>
+      <div class="row">
+        <div><label for="confidence">Pemahaman (1–5)</label><select id="confidence"><option value="">Pilih</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
+        <div><label for="statusSelect">Status</label><select id="statusSelect"><option value="Belum mulai">Belum mulai</option><option value="Sedang dipelajari">Sedang dipelajari</option><option value="Selesai">Selesai</option></select></div>
+      </div>
+      <div class="buttons"><button id="saveBtn">Simpan catatan</button><button class="secondary" id="clearBtn">Kosongkan formulir</button></div>
+      <div class="status" id="saveStatus" aria-live="polite"></div>
+    </section>
+    <section class="card">
+      <h2>Ringkasan belajar</h2>
+      <p class="muted">Buat ringkasan untuk dibawa ke ChatGPT agar bisa dievaluasi secara manual.</p>
+      <label for="reflection">Evaluasi diri / pelajaran hari ini</label><textarea id="reflection" placeholder="Apa yang berjalan baik? Apa yang perlu diperbaiki?"></textarea>
+      <div class="buttons"><button id="summaryBtn">Buat teks ringkasan</button><button class="secondary" id="copyBtn">Salin ringkasan</button></div>
+      <label for="summaryOutput">Teks ringkasan</label><textarea id="summaryOutput" placeholder="Ringkasan akan muncul di sini." readonly></textarea>
+      <p class="notice">Tidak ada AI otomatis di halaman ini. Salin ringkasan lalu kirim ke ChatGPT untuk mendapatkan evaluasi. Data disimpan di browser perangkat ini.</p>
+    </section>
+  </div>
+  <section class="card">
+    <h2>Cadangan data</h2>
+    <p class="muted">Ekspor catatan secara berkala agar ada salinan jika data browser terhapus.</p>
+    <div class="buttons"><button id="exportBtn">Ekspor cadangan JSON</button><button class="secondary" id="importBtn">Impor cadangan JSON</button><button class="danger" id="resetBtn">Hapus semua data</button><input type="file" id="fileInput" accept=".json,application/json" hidden></div>
+    <div class="status" id="backupStatus" aria-live="polite"></div>
+  </section>
+  <div class="footer">KAELZ FX • Educational journal • Bukan nasihat keuangan</div>
+</div>
+<script>
+const lessons=[
+["Dasar Forex","Apa itu forex, pair mayor/minor, bid/ask, spread."],
+["Pip dan ukuran harga","Kenali pip, digit harga, dan cara menghitung pergerakan."],
+["Lot dan risiko","Pahami lot secara teori; fokus ke risiko, bukan profit."],
+["Leverage dan margin","Pelajari bagaimana leverage memperbesar risiko."],
+["Jenis order","Market, limit, stop order, serta perbedaan penggunaannya."],
+["Candlestick","Open, high, low, close dan arti candle."],
+["Struktur pasar","Uptrend, downtrend, sideways; swing high dan swing low."],
+["Support dan resistance","Tandai zona harga, bukan satu garis yang dianggap pasti."],
+["Supply dan demand","Pahami zona dan keterbatasan analisis zona."],
+["Retest","Amati harga kembali ke zona; jangan menganggap semua retest valid."],
+["Konfirmasi candle","Latih membaca penutupan candle tanpa buru-buru entry."],
+["Stop loss","Tempatkan invalidasi ide berdasarkan struktur, bukan angka asal."],
+["Take profit","Pelajari target yang masuk akal dan potensi hambatan harga."],
+["Risk-reward ratio","Hitung jarak risiko dan target; pahami bahwa RRR tidak menjamin hasil."],
+["Win rate","Hitung persentase menang dari total sampel."],
+["Break-even win rate","Hitung tingkat menang minimum sebelum biaya trading."],
+["Expectancy","Gabungkan win rate, rata-rata menang/kalah, dan biaya."],
+["Trading plan","Tulis kondisi yang harus ada sebelum simulasi."],
+["Manajemen risiko","Gunakan risiko simulasi yang konsisten; jangan mengejar kerugian."],
+["Psikologi trading","Catat emosi dan keputusan, bukan hanya hasil."],
+["Backtesting 1","Uji satu aturan pada chart historis."],
+["Backtesting 2","Kumpulkan sampel lebih banyak dan hindari memilih contoh saja."],
+["Jurnal trade demo","Catat alasan, entry, SL, TP, dan hasil simulasi."],
+["Kesalahan umum","Cari entry impulsif, SL asal, dan perubahan aturan."],
+["Evaluasi sampel","Bandingkan hasil dari banyak latihan, bukan satu trade."],
+["Sesi latihan 1","Uji setup sederhana pada akun demo."],
+["Sesi latihan 2","Ulangi aturan yang sama dan catat perbedaan."],
+["Review risiko","Pastikan ukuran risiko dan RRR dihitung konsisten."],
+["Review strategi","Catat aturan yang jelas, belum jelas, dan perlu diuji lagi."],
+["Evaluasi akhir","Rangkum kemajuan, kelemahan, dan rencana belajar berikutnya."]
+];
+const KEY="kaelzFxJournalV1";let data={};let current=1;
+const $=id=>document.getElementById(id);
+function load(){try{data=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){data={}}}
+function persist(){localStorage.setItem(KEY,JSON.stringify(data));renderLessons();renderStats()}
+function renderLessons(){const el=$("lessonList");el.innerHTML="";lessons.forEach((l,i)=>{let n=i+1,d=data[n]||{};let b=document.createElement("button");b.className="lesson"+(current===n?" active":"")+(d.status==="Selesai"?" done":"");b.innerHTML=`Day ${n}<small>${d.status==="Selesai"?"✓ Selesai":(d.status==="Sedang dipelajari"?"Belajar":"Buka")}</small>`;b.onclick=()=>selectLesson(n);el.appendChild(b)})}
+function renderStats(){let done=Object.values(data).filter(x=>x.status==="Selesai").length;let saved=Object.values(data).filter(x=>x.topic||x.practice||x.lessonLearned||x.difficulty||x.reflection).length;let p=Math.round(done/30*100);$("doneCount").textContent=done+"/30";$("streakCount").textContent=saved;$("percentCount").textContent=p+"%";$("progressBar").style.width=p+"%"}
+function selectLesson(n){saveCurrent(false);current=n;let l=lessons[n-1],d=data[n]||{};$("lessonHeading").textContent=`Day ${n} — ${l[0]}`;$("lessonDesc").textContent=l[1];["date","topic","practice","lessonLearned","difficulty","confidence","statusSelect","reflection"].forEach(k=>$(k).value=d[k]||"");$("saveStatus").textContent="";$("summaryOutput").value="";renderLessons()}
+function getForm(){let o={};["date","topic","practice","lessonLearned","difficulty","confidence","statusSelect","reflection"].forEach(k=>o[k]=$(k).value);o.status=o.statusSelect||"Belum mulai";return o}
+function saveCurrent(show=true){let f=getForm();if(Object.values(f).some(v=>String(v).trim())){data[current]={...(data[current]||{}),...f};persist();if(show)$("saveStatus").textContent="Catatan tersimpan di browser perangkat ini."}else if(show)$("saveStatus").textContent="Isi catatan terlebih dahulu sebelum menyimpan."}
+function makeSummary(){let f=getForm();return `KAELZ FX — RINGKASAN BELAJAR\nDay ${current}: ${lessons[current-1][0]}\nTanggal: ${f.date||"-"}\nMateri: ${f.topic||"-"}\nLatihan/jawaban: ${f.practice||"-"}\nYang dipahami: ${f.lessonLearned||"-"}\nYang membingungkan: ${f.difficulty||"-"}\nPemahaman: ${f.confidence||"-"}/5\nStatus: ${f.status}\nEvaluasi diri: ${f.reflection||"-"}\n\nTolong evaluasi pemahaman saya secara ringkas. Koreksi kesalahan konsep atau hitungan, jelaskan alasannya, lalu beri satu latihan lanjutan. Saya masih pemula; fokus edukasi dan akun demo, bukan rekomendasi trading nyata.`}
+$("saveBtn").onclick=()=>saveCurrent(true);
+$("clearBtn").onclick=()=>{["date","topic","practice","lessonLearned","difficulty","confidence","statusSelect","reflection"].forEach(k=>$(k).value="");$("saveStatus").textContent="Formulir dikosongkan. Catatan lama baru berubah jika disimpan."};
+$("summaryBtn").onclick=()=>{$("summaryOutput").value=makeSummary()};
+$("copyBtn").onclick=async()=>{if(!$("summaryOutput").value)$("summaryOutput").value=makeSummary();try{await navigator.clipboard.writeText($("summaryOutput").value);$("saveStatus").textContent="Ringkasan disalin."}catch(e){$("summaryOutput").focus();$("summaryOutput").select();$("saveStatus").textContent="Pilih teks ringkasan lalu salin secara manual."}};
+$("exportBtn").onclick=()=>{saveCurrent(false);const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="kaelz-fx-cadangan.json";a.click();URL.revokeObjectURL(a.href);$("backupStatus").textContent="Cadangan dibuat."};
+$("importBtn").onclick=()=>$("fileInput").click();
+$("fileInput").onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const imported=JSON.parse(await f.text());if(!imported||typeof imported!=="object")throw Error();data={...data,...imported};persist();selectLesson(current);$("backupStatus").textContent="Cadangan berhasil diimpor."}catch(err){$("backupStatus").textContent="File tidak valid atau tidak bisa dibaca."}e.target.value=""};
+$("resetBtn").onclick=()=>{if(confirm("Hapus semua catatan Kaelz FX dari browser ini? Pastikan sudah mengekspor cadangan jika diperlukan.")){data={};persist();selectLesson(1);$("backupStatus").textContent="Semua catatan dihapus."}};
+load();renderLessons();renderStats();selectLesson(1);
+</script>
+</body>
+</html>
